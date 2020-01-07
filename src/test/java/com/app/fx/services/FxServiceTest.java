@@ -5,6 +5,7 @@ import com.app.fx.controller.response.FXResponse;
 import com.app.fx.entities.ExchangeRatesMappingEntity;
 import com.app.fx.repository.ExchangeRatesMappingEntityRepository;
 import com.app.fx.services.impl.FxServiceImpl;
+import com.app.fx.utils.ExchangeCurrency;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +25,7 @@ import javax.validation.constraints.AssertTrue;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static com.app.fx.util.FxDataUtils.getFxRateList;
@@ -42,7 +44,7 @@ public class FxServiceTest {
 
 
     @Test
-    public void fxRate() {
+    public void fxRates() {
 
         List<ExchangeRatesMappingEntity>  mappingList=getFxRateList();
         Mockito.when(repository.findAll()).thenReturn(mappingList);
@@ -51,8 +53,10 @@ public class FxServiceTest {
 
     }
 
+
+
     @Test
-    public void fxRates() {
+    public void fxRate() {
         List<ExchangeRatesMappingEntity>  mappingList=getFxRateList();
         Mockito.when(repository.findByBaseCurrencyAndTargetCurrency(Mockito.anyString(),Mockito.anyString())).thenReturn(mappingList.get(0));
 
@@ -61,6 +65,26 @@ public class FxServiceTest {
         request.setTargetCurrency("SGD");
         request.setBaseAmount(new BigDecimal(1.30));
         FXResponse  fxRate=fxService.getFxRates(request);
+        Assert.assertTrue("Fx Amount should not be empty", fxRate.getExchangeAmount()!=null);
+
+
+    }
+
+    @Test
+    public void fxRateFromCache() {
+
+        List<ExchangeRatesMappingEntity>  mappingList=getFxRateList();
+        ExchangeCurrency.loadFxRates(list->{
+            synchronized (list) {
+                list.clear();
+                mappingList.forEach(list::add);
+            }
+        });
+        FxRequest request= new FxRequest();
+        request.setBaseCurrency("USD");
+        request.setTargetCurrency("SGD");
+        request.setBaseAmount(new BigDecimal(1.30));
+        FXResponse  fxRate=fxService.getFxRateFromCache(request);
         Assert.assertTrue("Fx Amount should not be empty", fxRate.getExchangeAmount()!=null);
 
 

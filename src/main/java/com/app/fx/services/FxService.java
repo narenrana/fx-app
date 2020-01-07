@@ -8,6 +8,6 @@ import java.util.List;
 public interface FxService {
 
     FXResponse getFxRates(FxRequest fxRequest);
-
     List<FXResponse> getAllFxRates();
+    FXResponse getFxRateFromCache(FxRequest fxRequest);
 }

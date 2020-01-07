@@ -6,6 +6,6 @@ public interface TradingCurrency {
 
    BigDecimal getExchangeRates( Currency targetCurrency );
 
-   BigDecimal getExchangeAmount( Currency targetCurrency );
+   BigDecimal getExchangeAmount( Currency targetCurrency ,BigDecimal amount);
 
 }

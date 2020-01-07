@@ -16,6 +16,7 @@ public class FxDataUtils {
         usdToSgd.setBaseCurrency("USD");
         usdToSgd.setTargetCurrency("SGD");
         usdToSgd.setExchangeRate(new BigDecimal(1.35));
+        list.add(usdToSgd);
 
         ExchangeRatesMappingEntity usdToInr= new ExchangeRatesMappingEntity();
         usdToInr.setBaseCurrency("USD");

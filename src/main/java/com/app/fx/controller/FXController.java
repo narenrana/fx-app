@@ -3,6 +3,7 @@ package com.app.fx.controller;
 import com.app.fx.controller.request.FxRequest;
 import com.app.fx.controller.response.FXResponse;
 import com.app.fx.services.FxService;
+import com.app.fx.utils.ExchangeCurrency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +13,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class FXController {
+
     @Autowired
-    private FxService fxService;
+    ExchangeCurrency exchangeCurrency;
 
     /**
      * API to get Fx rates
@@ -57,6 +59,11 @@ public class FXController {
 
         return fxService.getAllFxRates();
 
+    }
+
+    @PostMapping("/cache/fx-rate")
+    public FXResponse getFxRatesFromCache(@Valid @RequestBody FxRequest request) {
+        return fxService.getFxRateFromCache(request);
     }
 
 }

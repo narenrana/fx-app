@@ -5,6 +5,7 @@ import com.app.fx.controller.response.FXResponse;
 import com.app.fx.services.FxService;
 import com.app.fx.entities.ExchangeRatesMappingEntity;
 import com.app.fx.repository.ExchangeRatesMappingEntityRepository;
+import com.app.fx.utils.ExchangeCurrency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +26,6 @@ public class FxServiceImpl implements FxService {
 
         ExchangeRatesMappingEntity fxMapping= exchangeRatesMappingEntityRepository.findByBaseCurrencyAndTargetCurrency(fxRequest.getBaseCurrency(),fxRequest.getTargetCurrency());
 
-        //ExchangeCurrency exchangeCurrency= new ExchangeCurrency();
-       // exchangeCurrency.setId(fxRequest.getBaseCurrency());
-
         FXResponse response= new FXResponse();
         response.setBaseCurrency(fxRequest.getBaseCurrency());
         response.setTargetCurrency(fxRequest.getTargetCurrency());
@@ -47,7 +45,6 @@ public class FxServiceImpl implements FxService {
 
         List<FXResponse> response= new ArrayList<>();
         Iterable<ExchangeRatesMappingEntity> fxMappingList= exchangeRatesMappingEntityRepository.findAll();
-
         fxMappingList.forEach(fxMapping ->{
 
             FXResponse fxResponse= new FXResponse();
@@ -58,8 +55,28 @@ public class FxServiceImpl implements FxService {
             response.add(fxResponse);
 
         });
+        return response;
+    }
+
+    @Override
+    public FXResponse getFxRateFromCache(FxRequest request) {
+        ExchangeCurrency baseCurrency= new ExchangeCurrency();
+        baseCurrency.setName(request.getBaseCurrency());
+        baseCurrency.setId(request.getBaseCurrency());
+
+        ExchangeCurrency targetCurrency= new ExchangeCurrency();
+        targetCurrency.setName(request.getTargetCurrency());
+        targetCurrency.setId(request.getTargetCurrency());
+
+        FXResponse response= new FXResponse();
+        response.setTargetCurrency(request.getTargetCurrency());
+        response.setBaseCurrency(request.getBaseCurrency());
+        response.setBaseAmount(request.getBaseAmount());
+        response.setExchangeRate(baseCurrency.getExchangeRates(targetCurrency));
+        response.setExchangeAmount(baseCurrency.getExchangeAmount(targetCurrency,request.getBaseAmount() ));
 
         return response;
     }
+
 
 }

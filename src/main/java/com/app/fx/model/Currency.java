@@ -6,5 +6,4 @@ import lombok.Data;
 public  abstract class Currency  implements TradingCurrency {
     private String id;
     private String name;
-
 }
