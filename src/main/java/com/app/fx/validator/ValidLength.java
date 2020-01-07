@@ -15,8 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface ValidLength {
 
-    String message() default "Invalid length only 2 user allowed";
-
+    String message() default "Invalid length. Should be equal to 3";
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};

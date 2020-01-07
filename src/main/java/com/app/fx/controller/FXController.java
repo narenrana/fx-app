@@ -4,21 +4,19 @@ import com.app.fx.controller.request.FxRequest;
 import com.app.fx.controller.response.FXResponse;
 import com.app.fx.services.FxService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/friend")
+@RequestMapping("/api")
 public class FXController {
     @Autowired
     private FxService fxService;
 
     /**
-     * API to create a friend connection between two email addresses.
+     * API to get Fx rates
      * Sample Request payload
      {
       "baseCurrency": "USD",
@@ -36,9 +34,28 @@ public class FXController {
      * @return
      */
     @PostMapping("/fx-rate")
-    public FXResponse connectFriend(@Valid @RequestBody FxRequest request) {
+    public FXResponse getFxRates(@Valid @RequestBody FxRequest request) {
 
         return fxService.getFxRates(request);
+
+    }
+
+    /**
+     * API to get all Fx Rates
+     * Sample Response payload
+     [{
+     "baseCurrency": "USD",
+     "targetCurrency":"SGD",
+     "baseAmount": "10.788",
+     "exchangeRate":"",
+     "exchangeAmount":"",
+     }]
+     * @return
+     */
+    @GetMapping("/fx-rates")
+    public List<FXResponse> getAllRates() {
+
+        return fxService.getAllFxRates();
 
     }
 

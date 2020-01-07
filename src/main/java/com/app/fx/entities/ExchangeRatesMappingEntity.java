@@ -17,11 +17,11 @@ public class ExchangeRatesMappingEntity{
     private String id;
 
     @Basic
-    @Column(name = "baseCurrency", nullable = false, length = 3)
+    @Column(name = "baseCurrency", nullable = false)
     private String baseCurrency;
 
     @Basic
-    @Column(name = "targetCurrency", nullable = false, length = 3)
+    @Column(name = "targetCurrency", nullable = false)
     private String targetCurrency;
 
     @Basic

@@ -1,0 +1,51 @@
+{
+	"variables": [],
+	"info": {
+		"name": "fx-rates",
+		"_postman_id": "d43cb346-a058-4361-60b8-3a03f568ff1e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/fx-rate",
+			"request": {
+				"url": "http://localhost:8080/api/fx-rate",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"baseCurrency\": \"USD\",\n      \"targetCurrency\":\"INR\",\n      \"baseAmount\": 1.0\n     }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/fx-rate copy",
+			"request": {
+				"url": "http://localhost:8080/api/fx-rates",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"baseCurrency\": \"USD\",\n      \"targetCurrency\":\"INR\",\n      \"baseAmount\": 1.0\n     }"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

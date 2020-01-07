@@ -1,9 +1,9 @@
 CREATE TABLE  `exchange_rates_mapping` (
 
     `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `baseCurrency` varchar(20),
-    `targetCurrency` DECIMAL,
-    `exchangeRate` DECIMAL,
+    `base_currency` varchar(3),
+    `target_currency` varchar(3),
+    `exchange_rate` DECIMAL,
     `created` timestamp default CURRENT_TIMESTAMP,
     `last_updated` timestamp default CURRENT_TIMESTAMP
 

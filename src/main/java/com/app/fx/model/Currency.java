@@ -3,7 +3,8 @@ package com.app.fx.model;
 import lombok.Data;
 
 @Data
-abstract class Currency  implements TradingCurrency {
-    String id;
-    String name;
+public  abstract class Currency  implements TradingCurrency {
+    private String id;
+    private String name;
+
 }
